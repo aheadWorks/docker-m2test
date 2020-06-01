@@ -46,7 +46,6 @@ def install(path):
     with open(path / 'composer.json') as f:
         composer = json.load(f)
         repo_name = re.sub(r'[^a-z0-9_]', '_', composer['name'])
-        module_repository = os.getcwd() + '/*'
 
     with cd(BASIC_PATH):
         proc = subprocess.Popen(['composer', 'config', 'repositories.' + repo_name, repo_type, path])
@@ -60,8 +59,6 @@ def install(path):
             raise click.ClickException("Failed to install extension")
 
     result_path = BASIC_PATH / 'vendor' / composer['name']
-    os.system('rm -rf ' + str(result_path) + '/*')
-    os.system('cp -r ' + module_repository + ' ' + str(result_path))
 
     return result_path
 
