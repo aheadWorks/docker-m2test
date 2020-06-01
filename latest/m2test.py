@@ -60,6 +60,7 @@ def install(path):
             raise click.ClickException("Failed to install extension")
 
     result_path = BASIC_PATH / 'vendor' / composer['name']
+    os.system('rm -rf ' + str(result_path) + '/*')
     os.system('cp -r ' + module_repository + ' ' + str(result_path))
 
     return result_path
